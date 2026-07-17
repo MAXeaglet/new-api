@@ -24,8 +24,8 @@ jobs:
         with:
           go-version: '1.22'
 
-      - name: Create classic frontend dist dir (for Go embed)
-        run: mkdir -p web/classic/dist web/default/dist
+      - name: Create frontend dist dirs (for Go embed)
+        run: mkdir -p web/classic/dist web/default/dist && touch web/classic/dist/.gitkeep web/default/dist/.gitkeep
 
       - name: Build all targets
         run: go build -v ./...
