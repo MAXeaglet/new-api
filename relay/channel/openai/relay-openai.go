@@ -179,6 +179,7 @@ func OaiStreamHandler(c *gin.Context, info *relaycommon.RelayInfo, resp *http.Re
 		usage.CompletionTokens += toolCount * 7
 	}
 
+	normalizeOpenAIUsage(usage)
 	applyUsagePostProcessing(info, usage, common.StringToByteSlice(lastStreamData))
 
 	HandleFinalResponse(c, info, lastStreamData, responseId, createAt, model, systemFingerprint, usage, containStreamUsage)
@@ -249,6 +250,7 @@ func OpenaiHandler(c *gin.Context, info *relaycommon.RelayInfo, resp *http.Respo
 		usageModified = true
 	}
 
+	normalizeOpenAIUsage(&simpleResponse.Usage)
 	applyUsagePostProcessing(info, &simpleResponse.Usage, responseBody)
 
 	switch info.RelayFormat {
